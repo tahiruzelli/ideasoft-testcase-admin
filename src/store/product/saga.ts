@@ -3,7 +3,7 @@ import axios from "axios";
 import { GET_PRODUCTS_STARTED } from "./types";
 import { getProductsSucceed, getProductsFailed } from "./actions";
 import { getToken } from "@/src/utils/helpers/token";
-import { urls } from "@/src/utils/helpers/urls";
+import { urls } from "@/src/utils/constans/urls";
 
 function* getProductsTask(action: any) {
   try {
