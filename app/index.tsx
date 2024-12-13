@@ -1,11 +1,14 @@
 import React from "react";
-
-import { View } from "react-native";
+import SplashTemplate from "../src/components/templates/splash";
+import { Provider } from "react-redux";
+import store from "@/src/store";
 
 const IndexPage = () => {
   return (
     <>
-      <View></View>
+      <Provider store={store}>
+        <SplashTemplate />
+      </Provider>
     </>
   );
 };
