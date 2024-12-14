@@ -9,4 +9,8 @@ export const Colors = {
   gray: "gray",
   green: "green",
   lightGray: "#D3D3D3",
+  shadowColor: "#171717",
+  successLight: "#DAF5EC",
+  errorLight: "#FFD9DE",
+  default: "#BDC7D1",
 };
