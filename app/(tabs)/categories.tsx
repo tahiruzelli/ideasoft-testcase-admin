@@ -1,5 +1,5 @@
 import React from "react";
-import CategoriesTemplate from "../../src/components/templates/products";
+import CategoriesTemplate from "../../src/components/templates/categories";
 import { Provider } from "react-redux";
 import store from "@/src/store";
 

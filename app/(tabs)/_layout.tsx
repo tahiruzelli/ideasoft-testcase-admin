@@ -1,9 +1,15 @@
+import { Colors } from "@/src/utils/constans/colors";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: "blue", headerShown: false }}>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors.primary,
+        headerShown: false,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
