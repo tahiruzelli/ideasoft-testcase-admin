@@ -1,19 +1,17 @@
 import { ScrollView, View } from "react-native";
 import { FAB } from "../../molecules/FAB";
-import { CategoryCard } from "../../molecules/category-card";
 import AppBar from "../../atoms/app-bar";
 import { Colors } from "@/src/utils/constans/colors";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { router } from "expo-router";
 import { PageRoutes } from "@/src/utils/constans/page-routes";
+import { CategoryCard } from "../../molecules/category/category-card";
 
 export default function CategoriesOrganism({
   categories = [],
   getCategories = () => {},
-  setCurrentCategory = (payload: any) => {},
 }) {
   useEffect(() => {
-    console.log(categories);
     getCategories();
   }, []);
 

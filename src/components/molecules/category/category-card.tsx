@@ -1,14 +1,12 @@
 import { Colors } from "@/src/utils/constans/colors";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import AppText from "../atoms/app-text";
+import AppText from "../../atoms/app-text";
 import DropShadow from "react-native-drop-shadow";
-import { CopyIcon } from "../atoms/icons";
+import { CopyIcon } from "../../atoms/icons";
 import { useState } from "react";
-import { AppModal } from "../atoms/app-modal";
-import SuccessAnimation from "../../../assets/animations/success.json";
+import { AppModal } from "../../atoms/app-modal";
+import SuccessAnimation from "../../../../assets/animations/success.json";
 import * as Clipboard from "expo-clipboard";
-import { router } from "expo-router";
-import { PageRoutes } from "@/src/utils/constans/page-routes";
 
 interface CategoryCardProps {
   category?: any | undefined;
