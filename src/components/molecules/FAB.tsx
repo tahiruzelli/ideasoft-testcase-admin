@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 111,
+    zIndex: 2,
   },
   titleStyle: {
     color: Colors.white,

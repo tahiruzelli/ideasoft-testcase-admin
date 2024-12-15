@@ -7,11 +7,13 @@ import { useState } from "react";
 import { AppModal } from "../atoms/app-modal";
 import SuccessAnimation from "../../../assets/animations/success.json";
 import * as Clipboard from "expo-clipboard";
+import { router } from "expo-router";
+import { PageRoutes } from "@/src/utils/constans/page-routes";
 
 interface CategoryCardProps {
-  category: any;
+  category?: any | undefined;
 }
-// name, showcaseContent, metaKeywords, createdAt, status (1 aktif 0 kapali), id
+
 export function CategoryCard({ category }: CategoryCardProps): JSX.Element {
   const [visible, setVisible] = useState(false);
   return (

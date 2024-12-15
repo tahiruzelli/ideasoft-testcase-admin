@@ -4,6 +4,10 @@ import {
   GET_CATEGORIES_STARTED,
   GET_CATEGORIES_SUCCESS,
   SET_CURRENT_CATEGORY,
+  ADD_CATEGORIES_ERROR,
+  ADD_CATEGORIES_STARTED,
+  ADD_CATEGORIES_SUCCESS,
+  ADD_CATEGORIES_RESET,
 } from "./types";
 
 const initialState = {
@@ -11,6 +15,7 @@ const initialState = {
   currentCategory: {},
   isLoading: true,
   error: null,
+  addCategorySucceded: false,
 };
 
 const category = (state = initialState, action: any) => {
@@ -42,6 +47,32 @@ const category = (state = initialState, action: any) => {
       return {
         ...state,
         currentCategory: payload,
+      };
+
+    case ADD_CATEGORIES_STARTED:
+      return {
+        ...state,
+        isLoading: true,
+        addCategorySucceded: false,
+      };
+    case ADD_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        addCategorySucceded: true,
+        categories: [...state?.categories, payload],
+      };
+    case ADD_CATEGORIES_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: payload,
+        addCategorySucceded: false,
+      };
+    case ADD_CATEGORIES_RESET:
+      return {
+        ...state,
+        addCategorySucceded: false,
       };
 
     default:
