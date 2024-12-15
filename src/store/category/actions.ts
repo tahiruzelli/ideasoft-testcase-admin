@@ -8,6 +8,9 @@ import {
   ADD_CATEGORIES_STARTED,
   ADD_CATEGORIES_SUCCESS,
   ADD_CATEGORIES_RESET,
+  EDIT_CATEGORIES_STARTED,
+  EDIT_CATEGORIES_ERROR,
+  EDIT_CATEGORIES_SUCCESS,
 } from "./types";
 
 //GET
@@ -52,3 +55,19 @@ export const addCategoryFailed = (error: any) => ({
 export const AddCategoryReset = () => {
   return { type: ADD_CATEGORIES_RESET };
 };
+
+//EDIT
+export const editCategory = (values: any) => ({
+  type: EDIT_CATEGORIES_STARTED,
+  payload: values,
+});
+
+export const editCategorySucceed = (data: any) => ({
+  type: EDIT_CATEGORIES_SUCCESS,
+  payload: data,
+});
+
+export const editCategoryFailed = (error: any) => ({
+  type: EDIT_CATEGORIES_ERROR,
+  payload: error,
+});

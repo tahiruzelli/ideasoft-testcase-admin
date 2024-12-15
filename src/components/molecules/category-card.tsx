@@ -12,12 +12,20 @@ import { PageRoutes } from "@/src/utils/constans/page-routes";
 
 interface CategoryCardProps {
   category?: any | undefined;
+  onTap: () => void;
 }
 
-export function CategoryCard({ category }: CategoryCardProps): JSX.Element {
+export function CategoryCard({
+  category,
+  onTap,
+}: CategoryCardProps): JSX.Element {
   const [visible, setVisible] = useState(false);
   return (
-    <TouchableOpacity onPress={() => {}}>
+    <TouchableOpacity
+      onPress={() => {
+        onTap();
+      }}
+    >
       <AppModal
         isVisible={visible}
         okFunction={() => {

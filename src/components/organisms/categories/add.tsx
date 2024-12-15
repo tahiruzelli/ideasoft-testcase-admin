@@ -8,13 +8,12 @@ import AddCategoryStatusSelect from "../../molecules/category/status-radio";
 import { useEffect, useState } from "react";
 import { AppModal } from "../../atoms/app-modal";
 import WarningAnimation from "../../../../assets/animations/warning.json";
-import { router } from "expo-router";
-import { PageRoutes } from "@/src/utils/constans/page-routes";
+import { router, useLocalSearchParams } from "expo-router";
 export default function AddCategoryOrganism({
   isLoading = false,
-  error = null,
   addCategorySucceded = false,
   addCategory = ({}) => {},
+  editCategory = ({}) => {},
   resetAddCategory = () => {},
 }) {
   const [name, setName] = useState("");
@@ -24,15 +23,22 @@ export default function AddCategoryOrganism({
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const params = useLocalSearchParams();
   useEffect(() => {
     resetAddCategory();
+    if (Object.keys(params).length !== 0) {
+      setName(params["name"]);
+      setMetaKeywords(params["metaKeywords"]);
+      setShowcaseContent(params["showcaseContent"]);
+      setSelectedIndex(Number(params["status"]));
+    }
   }, []);
   useEffect(() => {
     setLoading(isLoading);
   }, [isLoading]);
 
   useEffect(() => {
-    console.log(addCategorySucceded);
     if (addCategorySucceded === true) {
       router.back();
     }
@@ -51,14 +57,20 @@ export default function AddCategoryOrganism({
       ></AppModal>
       <AppBar title={"Add Category"}></AppBar>
       <View style={{ paddingHorizontal: 16 }}>
-        <AppInput placeholder={"Name"} onChange={setName}></AppInput>
+        <AppInput
+          placeholder={"Name"}
+          onChange={setName}
+          value={name ?? ""}
+        ></AppInput>
         <AppInput
           placeholder={"Meta Keywords"}
           onChange={setMetaKeywords}
+          value={metaKeywords ?? ""}
         ></AppInput>
         <AppInput
           placeholder={"Showcase Content"}
           onChange={setShowcaseContent}
+          value={showcaseContent ?? ""}
         ></AppInput>
         <AddCategoryStatusSelect
           selectedIndex={selectedIndex}
@@ -70,7 +82,9 @@ export default function AddCategoryOrganism({
       <View style={{ position: "absolute", bottom: 34, right: 0, left: 0 }}>
         <AppButton
           type={ButtonTypes.primary}
-          title={"Add Category"}
+          title={
+            Object.keys(params).length !== 0 ? "Edit Category" : "Add Category"
+          }
           onTap={() => {
             if (name.length < 3) {
               setModalVisible(true);
@@ -88,12 +102,22 @@ export default function AddCategoryOrganism({
                 "Show case content can effect visibilty of your category. Please add content"
               );
             } else {
-              addCategory({
-                name: name,
-                showcaseContent: showcaseContent,
-                metaKeywords: metaKeywords,
-                status: selectedIndex,
-              });
+              if (Object.keys(params).length !== 0) {
+                editCategory({
+                  name: name,
+                  showcaseContent: showcaseContent,
+                  metaKeywords: metaKeywords,
+                  status: selectedIndex,
+                  id: Number(params["id"]),
+                });
+              } else {
+                addCategory({
+                  name: name,
+                  showcaseContent: showcaseContent,
+                  metaKeywords: metaKeywords,
+                  status: selectedIndex,
+                });
+              }
             }
           }}
           isLoading={loading}

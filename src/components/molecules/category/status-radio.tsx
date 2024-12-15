@@ -1,7 +1,6 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import RadioButton from "../../atoms/radio-button";
 import AppText from "../../atoms/app-text";
-import { useState } from "react";
 import { Colors } from "@/src/utils/constans/colors";
 
 export default function AddCategoryStatusSelect(props: any) {
@@ -20,10 +19,10 @@ export default function AddCategoryStatusSelect(props: any) {
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => {
-            props.setSelectedIndex(2);
+            props.setSelectedIndex(0);
           }}
         >
-          <RadioButton isSelected={props.selectedIndex === 2}></RadioButton>
+          <RadioButton isSelected={props.selectedIndex === 0}></RadioButton>
         </TouchableOpacity>
         <AppText style={styles.textStyle}>Deactive</AppText>
       </View>

@@ -8,6 +8,9 @@ import {
   ADD_CATEGORIES_STARTED,
   ADD_CATEGORIES_SUCCESS,
   ADD_CATEGORIES_RESET,
+  EDIT_CATEGORIES_STARTED,
+  EDIT_CATEGORIES_SUCCESS,
+  EDIT_CATEGORIES_ERROR,
 } from "./types";
 
 const initialState = {
@@ -72,6 +75,35 @@ const category = (state = initialState, action: any) => {
     case ADD_CATEGORIES_RESET:
       return {
         ...state,
+        addCategorySucceded: false,
+      };
+
+    case EDIT_CATEGORIES_STARTED:
+      return {
+        ...state,
+        isLoading: true,
+        addCategorySucceded: false,
+      };
+    case EDIT_CATEGORIES_SUCCESS:
+      const categories = state?.categories;
+      const element = categories.filter(
+        (element: any) => element?.id === payload.id
+      )[0];
+      const index = categories.indexOf(element);
+      categories.splice(index, 1);
+      categories.push(payload);
+      categories.sort((a, b) => a.sortOrder - b.sortOrder);
+      return {
+        ...state,
+        isLoading: false,
+        addCategorySucceded: true,
+        categories: [...state?.categories],
+      };
+    case EDIT_CATEGORIES_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: payload,
         addCategorySucceded: false,
       };
 

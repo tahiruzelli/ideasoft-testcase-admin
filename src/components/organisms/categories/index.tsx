@@ -34,7 +34,19 @@ export default function CategoriesOrganism({
         }}
       >
         {categories.map((element, index) => {
-          return <CategoryCard key={index} category={element}></CategoryCard>;
+          return (
+            <CategoryCard
+              key={index}
+              category={element}
+              onTap={() => {
+                // setCurrentCategory(element);
+                router.push({
+                  pathname: PageRoutes.categoryAdd,
+                  params: element,
+                });
+              }}
+            ></CategoryCard>
+          );
         })}
       </ScrollView>
     </View>

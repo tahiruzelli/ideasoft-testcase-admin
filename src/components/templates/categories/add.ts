@@ -1,6 +1,10 @@
 import { connect } from "react-redux";
 import CategoriesOrganism from "../../organisms/categories/add";
-import { addCategory, AddCategoryReset } from "@/src/store/category/actions";
+import {
+  addCategory,
+  AddCategoryReset,
+  editCategory,
+} from "@/src/store/category/actions";
 
 const mapStateToProps = (state: any) => ({
   isLoading: state?.category?.isLoading,
@@ -10,6 +14,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   addCategory: (payload: any) => dispatch(addCategory(payload)),
+  editCategory: (payload: any) => dispatch(editCategory(payload)),
   resetAddCategory: () => dispatch(AddCategoryReset()),
 });
 

@@ -1,15 +1,47 @@
 import { takeLatest, call, put, all } from "redux-saga/effects";
 import axios from "axios";
-import { ADD_CATEGORIES_STARTED, GET_CATEGORIES_STARTED } from "./types";
+import {
+  ADD_CATEGORIES_STARTED,
+  EDIT_CATEGORIES_STARTED,
+  GET_CATEGORIES_STARTED,
+} from "./types";
 import {
   getCategoriesSucceed,
   getCategoriesFailed,
   addCategorySucceed,
   addCategoryFailed,
+  editCategorySucceed,
+  editCategoryFailed,
 } from "./actions";
 import { getToken } from "@/src/utils/helpers/token";
 import { urls } from "@/src/utils/constans/urls";
 
+function* editCategoryTask(action: any) {
+  const { payload } = action;
+  const { name, showcaseContent, metaKeywords, status, id } = payload;
+  try {
+    console.log("saga");
+    const response = yield call(
+      axios.put,
+      `${urls.baseUrl}${urls.categories}/${id}`,
+      {
+        name: name,
+        showcaseContent: showcaseContent,
+        metaKeywords: metaKeywords,
+        status: status,
+      },
+      {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      }
+    );
+    const { data } = response;
+    console.log(data);
+    yield put(editCategorySucceed(data));
+  } catch (error) {
+    console.log(error?.response?.data);
+    yield put(editCategoryFailed(error?.response?.data));
+  }
+}
 function* addCategoryTask(action: any) {
   const { payload } = action;
   const { name, showcaseContent, metaKeywords, status } = payload;
@@ -52,6 +84,9 @@ function* getCategoriesTask(action: any) {
   }
 }
 
+function* watchEditCategory() {
+  yield takeLatest(EDIT_CATEGORIES_STARTED, editCategoryTask);
+}
 function* watchAddCategory() {
   yield takeLatest(ADD_CATEGORIES_STARTED, addCategoryTask);
 }
@@ -60,5 +95,5 @@ function* watchGetCategories() {
 }
 
 export default function* saga() {
-  yield all([watchGetCategories(), watchAddCategory()]);
+  yield all([watchGetCategories(), watchAddCategory(), watchEditCategory()]);
 }
