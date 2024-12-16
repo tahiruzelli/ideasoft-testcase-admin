@@ -1,5 +1,9 @@
 import { connect } from "react-redux";
-import { getProducts, setCurrentProduct } from "@/src/store/product/actions";
+import {
+  deleteProduct,
+  getProducts,
+  setCurrentProduct,
+} from "@/src/store/product/actions";
 import ProductsOrganism from "../../organisms/products";
 
 const mapStateToProps = (state: any) => ({
@@ -9,6 +13,7 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   getProducts: (payload: any) => dispatch(getProducts(payload)),
   setCurrentProduct: (payload: any) => dispatch(setCurrentProduct(payload)),
+  deleteProduct: (payload: any) => dispatch(deleteProduct(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsOrganism);

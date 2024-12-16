@@ -12,6 +12,9 @@ import {
   GET_CURRENCIES_RESET,
   GET_CURRENCIES_ERROR,
   GET_CURRENCIES_SUCCESS,
+  DELETE_PRODUCT_STARTED,
+  DELETE_PRODUCT_ERROR,
+  DELETE_PRODUCT_SUCCESS,
 } from "./types";
 
 //GET PRODUCTS
@@ -77,3 +80,19 @@ export const getCurrenciesFailed = (error: any) => ({
 export const getCurrenciesReset = () => {
   return { type: GET_CURRENCIES_RESET };
 };
+
+//DELETE PRODUCT
+export const deleteProduct = (values: any) => ({
+  type: DELETE_PRODUCT_STARTED,
+  payload: values,
+});
+
+export const deleteProductSucceed = (data: any) => ({
+  type: DELETE_PRODUCT_SUCCESS,
+  payload: data,
+});
+
+export const deleteProductFailed = (error: any) => ({
+  type: DELETE_PRODUCT_ERROR,
+  payload: error,
+});

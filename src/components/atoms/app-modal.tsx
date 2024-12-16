@@ -15,6 +15,7 @@ interface ModalProps {
   secondButton?: any;
   image?: any;
   height?: number;
+  closeFunction?: () => void;
 }
 
 export const AppModal: React.FC<ModalProps> = ({
@@ -26,13 +27,14 @@ export const AppModal: React.FC<ModalProps> = ({
   secondButton,
   image,
   height,
+  closeFunction,
 }) => {
   return (
     <Modal
       testID={"modal"}
       isVisible={isVisible}
       style={styles.view}
-      onBackdropPress={() => okFunction()}
+      onBackdropPress={() => closeFunction()}
     >
       <View style={[styles.content, { height: height ?? undefined }]}>
         {Image(image)}

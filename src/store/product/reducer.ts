@@ -3,6 +3,9 @@ import {
   ADD_PRODUCT_RESET,
   ADD_PRODUCT_STARTED,
   ADD_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_ERROR,
+  DELETE_PRODUCT_STARTED,
+  DELETE_PRODUCT_SUCCESS,
   GET_CURRENCIES_ERROR,
   GET_CURRENCIES_RESET,
   GET_CURRENCIES_STARTED,
@@ -102,6 +105,24 @@ const product = (state = initialState, action: any) => {
       return {
         ...state,
         currencies: [],
+      };
+
+    //DELETE PRODUCT
+    case DELETE_PRODUCT_STARTED:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case DELETE_PRODUCT_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: payload,
       };
 
     default:

@@ -8,13 +8,14 @@ import { Colors } from "@/src/utils/constans/colors";
 
 export default function ProductCard(props: any) {
   const [isFavorise, setIsFavorite] = useState(false);
+
   const emptyImageUrl: string =
     "https://cdn1.iconfinder.com/data/icons/business-company-1/500/image-512.png";
 
   return (
     <TouchableOpacity
-      onPress={() => {
-        props.onPress(props.item);
+      onLongPress={() => {
+        props.onPress();
       }}
     >
       <DropShadow style={styles.itemContainer}>
@@ -108,7 +109,6 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: Colors.black,
   },
-
   productTitle: {
     fontSize: 14,
     fontWeight: "400",
