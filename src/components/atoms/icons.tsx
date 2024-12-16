@@ -60,3 +60,52 @@ export function LikeIcon({
     </Svg>
   );
 }
+
+export function SearchIcon({
+  height,
+  width,
+  color,
+  props,
+}: IconProps): JSX.Element {
+  return (
+    <Svg
+      width={width ?? 22}
+      height={height ?? 22}
+      viewBox="0 0 22 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <Path
+        d="M9.462 17.923a8.461 8.461 0 100-16.922 8.461 8.461 0 000 16.922zM20.999 21l-5.385-5.385"
+        stroke={color ?? "#3E3E3E"}
+        strokeWidth={1.71429}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
+export function ArrowDownIcon({
+  height,
+  width,
+  color,
+  props,
+}: IconProps): JSX.Element {
+  return (
+    <Svg
+      width={width ?? 14}
+      height={height ?? 8}
+      viewBox="0 0 14 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <Path
+        d="M.274 1.504l5.61 5.283a.975.975 0 001.322 0l5.61-5.283a.844.844 0 000-1.246.976.976 0 00-1.322 0L6.546 4.92 1.596.258a.975.975 0 00-1.322 0 .845.845 0 000 1.246z"
+        fill={color ?? "#092256"}
+      />
+    </Svg>
+  );
+}
