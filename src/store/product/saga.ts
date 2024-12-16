@@ -53,7 +53,7 @@ function* getCurrenciesTask(action: any) {
 }
 function* addProductTask(action: any) {
   const { payload } = action;
-  const { name, stockAmount, price1, currency, status } = payload;
+  const { name, stockAmount, price1, currency, status, category } = payload;
   try {
     const response = yield call(
       axios.post,
@@ -65,6 +65,7 @@ function* addProductTask(action: any) {
         currency: currency,
         status: status,
         sku: name,
+        categories: [category],
       },
       {
         headers: { Authorization: `Bearer ${getToken()}` },

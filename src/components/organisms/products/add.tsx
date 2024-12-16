@@ -17,12 +17,13 @@ import dimensions from "@/src/utils/helpers/dimensions";
 
 export default function AddProductOrganism({
   isLoading = false,
-  error = null,
+  categories = [],
   addProductSucceed = false,
   currencies = [],
   addProduct = ({}) => {},
   getCurrencies = () => {},
   resetAddProduct = () => {},
+  getCategories = () => {},
 }) {
   //name, stockAmount, price1, currency, status, image?
   const [loading, setLoading] = useState(false);
@@ -30,14 +31,17 @@ export default function AddProductOrganism({
   const [stockAmount, setstockAmount] = useState(0);
   const [price1, setprice1] = useState(0);
   const [currency, setcurrency] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState({});
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [currencyModalVisible, setCurrencyModalVisible] = useState(false);
+  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   useEffect(() => {
     resetAddProduct();
     getCurrencies();
+    getCategories();
   }, []);
 
   useEffect(() => {
@@ -48,6 +52,7 @@ export default function AddProductOrganism({
   useEffect(() => {
     setLoading(isLoading);
   }, [isLoading]);
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.background }}>
       <AppModal
@@ -93,11 +98,38 @@ export default function AddProductOrganism({
                 setcurrency({});
               }}
               multipleSelect={false}
+              label="label"
             ></DropDownSheet>
             <View>
               <AppText style={styles.DDTitleStyle}>{"Select Currency"}</AppText>
               <AppText style={styles.DDvalueStyle}>
                 {currency.label ?? "There is no selected Curreny"}
+              </AppText>
+            </View>
+            <ArrowDownIcon></ArrowDownIcon>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setCategoryModalVisible(true)}>
+          <View style={styles.DDcontainer}>
+            <DropDownSheet
+              title="Choose Category"
+              isVisible={categoryModalVisible}
+              closeModal={() => setCategoryModalVisible(false)}
+              height={dimensions()._height * 0.9}
+              data={categories}
+              applyFunction={(value: {}) => {
+                setSelectedCategory(value);
+              }}
+              clearFunction={() => {
+                setSelectedCategory({});
+              }}
+              multipleSelect={false}
+              label="name"
+            ></DropDownSheet>
+            <View>
+              <AppText style={styles.DDTitleStyle}>{"Select Category"}</AppText>
+              <AppText style={styles.DDvalueStyle}>
+                {selectedCategory.name ?? "There is no selected Category"}
               </AppText>
             </View>
             <ArrowDownIcon></ArrowDownIcon>
@@ -130,6 +162,9 @@ export default function AddProductOrganism({
             } else if (Object.keys(currency).length === 0) {
               setModalVisible(true);
               setModalMessage("You have to select a currency type");
+            } else if (Object.keys(selectedCategory).length === 0) {
+              setModalVisible(true);
+              setModalMessage("You have to select a Category");
             } else {
               addProduct({
                 name: name,
@@ -137,6 +172,7 @@ export default function AddProductOrganism({
                 price1: price1,
                 currency: currency,
                 status: selectedIndex,
+                category: selectedCategory,
               });
             }
           }}

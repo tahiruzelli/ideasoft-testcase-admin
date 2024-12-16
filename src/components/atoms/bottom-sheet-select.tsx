@@ -19,6 +19,7 @@ interface ModalProps {
   data: [];
   title: string;
   multipleSelect: boolean;
+  label: string;
 }
 
 const DropDownSheet: React.FC<ModalProps> = ({
@@ -30,6 +31,7 @@ const DropDownSheet: React.FC<ModalProps> = ({
   clearFunction,
   title,
   multipleSelect,
+  label,
 }) => {
   const [filteredData, setFilteredData] = useState([]);
 
@@ -39,7 +41,7 @@ const DropDownSheet: React.FC<ModalProps> = ({
     setFilteredData([]);
     setFilteredData(
       data.filter((element: any) =>
-        element["label"].toString().toUpperCase().includes(value.toUpperCase())
+        element[label].toString().toUpperCase().includes(value.toUpperCase())
       )
     );
 
@@ -99,6 +101,7 @@ const DropDownSheet: React.FC<ModalProps> = ({
                   setData(nextList);
                 }}
                 isSelected={element.isSelected ?? false}
+                label={label}
               ></Row>
             );
           })}
@@ -166,7 +169,7 @@ function Row(props: any) {
       onPress={() => {
         props.isChanged(!props.isSelected);
       }}
-      key={props.element.label}
+      key={props.element[props.label]}
       style={{
         width: dimensions()._width - 32,
         alignItems: "flex-start",
@@ -182,7 +185,7 @@ function Row(props: any) {
             : styles.unSelectedCityTextStyle
         }
       >
-        {props.element.label}
+        {props.element[props.label]}
       </AppText>
       <RadioButton isSelected={props.isSelected}></RadioButton>
     </TouchableOpacity>

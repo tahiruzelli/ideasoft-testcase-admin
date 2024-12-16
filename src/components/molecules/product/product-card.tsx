@@ -70,6 +70,14 @@ export default function ProductCard(props: any) {
               {props.item.discount}
             </AppText>
           </View>
+          {props.item.categories.length == 0 ? (
+            <View></View>
+          ) : (
+            <AppText>
+              <AppText>Category: </AppText>
+              <AppText>{props.item.categories[0].name}</AppText>
+            </AppText>
+          )}
         </View>
       </DropShadow>
     </TouchableOpacity>
