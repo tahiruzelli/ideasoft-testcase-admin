@@ -11,6 +11,9 @@ import {
   EDIT_CATEGORIES_STARTED,
   EDIT_CATEGORIES_ERROR,
   EDIT_CATEGORIES_SUCCESS,
+  DELETE_CATEGORY_STARTED,
+  DELETE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_ERROR,
 } from "./types";
 
 //GET
@@ -69,5 +72,21 @@ export const editCategorySucceed = (data: any) => ({
 
 export const editCategoryFailed = (error: any) => ({
   type: EDIT_CATEGORIES_ERROR,
+  payload: error,
+});
+
+//DELETE
+export const deleteCategory = (values: any) => ({
+  type: DELETE_CATEGORY_STARTED,
+  payload: values,
+});
+
+export const deleteCategorySucceed = (data: any) => ({
+  type: DELETE_CATEGORY_SUCCESS,
+  payload: data,
+});
+
+export const deleteCategoryFailed = (error: any) => ({
+  type: DELETE_CATEGORY_ERROR,
   payload: error,
 });

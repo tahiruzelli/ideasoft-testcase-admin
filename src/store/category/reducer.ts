@@ -11,6 +11,9 @@ import {
   EDIT_CATEGORIES_STARTED,
   EDIT_CATEGORIES_SUCCESS,
   EDIT_CATEGORIES_ERROR,
+  DELETE_CATEGORY_STARTED,
+  DELETE_CATEGORY_ERROR,
+  DELETE_CATEGORY_SUCCESS,
 } from "./types";
 
 const initialState = {
@@ -105,6 +108,24 @@ const category = (state = initialState, action: any) => {
         isLoading: false,
         error: payload,
         addCategorySucceded: false,
+      };
+
+    case DELETE_CATEGORY_STARTED:
+      return {
+        ...state,
+        isLoading: true,
+        addCategorySucceded: false,
+      };
+    case DELETE_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case DELETE_CATEGORY_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: payload,
       };
 
     default:

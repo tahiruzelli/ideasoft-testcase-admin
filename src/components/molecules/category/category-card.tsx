@@ -11,11 +11,13 @@ import * as Clipboard from "expo-clipboard";
 interface CategoryCardProps {
   category?: any | undefined;
   onTap: () => void;
+  onLongPress: () => void;
 }
 
 export function CategoryCard({
   category,
   onTap,
+  onLongPress,
 }: CategoryCardProps): JSX.Element {
   const [visible, setVisible] = useState(false);
   return (
@@ -23,6 +25,7 @@ export function CategoryCard({
       onPress={() => {
         onTap();
       }}
+      onLongPress={onLongPress}
     >
       <AppModal
         isVisible={visible}

@@ -2,6 +2,7 @@ import { takeLatest, call, put, all } from "redux-saga/effects";
 import axios from "axios";
 import {
   ADD_CATEGORIES_STARTED,
+  DELETE_CATEGORY_STARTED,
   EDIT_CATEGORIES_STARTED,
   GET_CATEGORIES_STARTED,
 } from "./types";
@@ -12,15 +13,33 @@ import {
   addCategoryFailed,
   editCategorySucceed,
   editCategoryFailed,
+  deleteCategorySucceed,
+  deleteCategoryFailed,
 } from "./actions";
 import { getToken } from "@/src/utils/helpers/token";
 import { urls } from "@/src/utils/constans/urls";
 
+function* deleteCategoryTask(action: any) {
+  const { payload } = action;
+  const { id } = payload;
+  try {
+    const response = yield call(
+      axios.delete,
+      `${urls.baseUrl}${urls.categories}/${id}`,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      }
+    );
+    const { data } = response;
+    yield put(deleteCategorySucceed(data));
+  } catch (error) {
+    yield put(deleteCategoryFailed(error?.response?.data));
+  }
+}
 function* editCategoryTask(action: any) {
   const { payload } = action;
   const { name, showcaseContent, metaKeywords, status, id } = payload;
   try {
-    console.log("saga");
     const response = yield call(
       axios.put,
       `${urls.baseUrl}${urls.categories}/${id}`,
@@ -35,10 +54,8 @@ function* editCategoryTask(action: any) {
       }
     );
     const { data } = response;
-    console.log(data);
     yield put(editCategorySucceed(data));
   } catch (error) {
-    console.log(error?.response?.data);
     yield put(editCategoryFailed(error?.response?.data));
   }
 }
@@ -84,6 +101,9 @@ function* getCategoriesTask(action: any) {
   }
 }
 
+function* watchDeleteCategory() {
+  yield takeLatest(DELETE_CATEGORY_STARTED, deleteCategoryTask);
+}
 function* watchEditCategory() {
   yield takeLatest(EDIT_CATEGORIES_STARTED, editCategoryTask);
 }
@@ -95,5 +115,10 @@ function* watchGetCategories() {
 }
 
 export default function* saga() {
-  yield all([watchGetCategories(), watchAddCategory(), watchEditCategory()]);
+  yield all([
+    watchGetCategories(),
+    watchAddCategory(),
+    watchEditCategory(),
+    watchDeleteCategory(),
+  ]);
 }

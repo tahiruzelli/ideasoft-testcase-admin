@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import CategoriesOrganism from "../../organisms/categories";
 import {
+  deleteCategory,
   getCategories,
   setCurrentCategory,
 } from "@/src/store/category/actions";
@@ -11,6 +12,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   getCategories: (payload: any) => dispatch(getCategories(payload)),
+  deleteCategory: (payload: any) => dispatch(deleteCategory(payload)),
   setCurrentCategory: (payload: any) => dispatch(setCurrentCategory(payload)),
 });
 
